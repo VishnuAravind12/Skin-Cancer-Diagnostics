@@ -1,0 +1,15 @@
+tensorflow
+keras
+tqdm
+matplotlib
+seaborn
+pillow
+gdown
+argparse
+numpy
+pandas
+scikit-learn
+hypopt
+opencv-contrib-python
+tensorflowjs
+requests
