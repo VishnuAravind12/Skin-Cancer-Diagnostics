@@ -1,64 +1,5 @@
 import time
-import tensorflow as tf
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tqdm import tqdm
-
-import keras
-from keras import backend as K
-from tensorflow.keras.layers import *
-from keras.models import Sequential
-from keras.layers import Dense, Conv2D
-from keras.layers import Activation, MaxPooling2D, Dropout, Flatten, Reshape
-
-import matplotlib.pyplot as plt
-import matplotlib
-import seaborn as sns
 import os
-import random
-from PIL import Image
-import gdown
-
-import argparse
-import numpy as np
-from keras.layers import Conv2D, Input, BatchNormalization, LeakyReLU, ZeroPadding2D, UpSampling2D
-from keras.models import Model
-import struct
-import pandas as pd
-
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn import tree
-from sklearn.metrics import confusion_matrix, classification_report
-from sklearn.metrics import precision_recall_curve
-from sklearn.metrics import roc_auc_score
-from sklearn.base import BaseEstimator
-
-from sklearn.neural_network import MLPClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
-from sklearn.gaussian_process import GaussianProcessClassifier
-from sklearn.gaussian_process.kernels import RBF
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-
-from sklearn.metrics import make_scorer
-from sklearn.metrics import accuracy_score
-from keras.applications.mobilenet import MobileNet
-
-from hypopt import GridSearch
-
-from sklearn.decomposition import PCA
-from sklearn.manifold import TSNE
-
-from sklearn.cluster import KMeans
-from sklearn.cluster import AgglomerativeClustering
-
-import cv2
-import tensorflowjs as tfjs
-
 import requests, io, zipfile
 from distutils.dir_util import copy_tree
 
@@ -85,8 +26,11 @@ def download_data():
     # Download files
     for file_name, url in urls.items():
         response = requests.get(url)
-        with open(f'data/raw/{file_name}', 'wb') as f:
-            f.write(response.content)
+        if response.status_code == 200:
+            with open(f'data/raw/{file_name}', 'wb') as f:
+                f.write(response.content)
+        else:
+            print(f"Failed to download {file_name} from {url}")
     
     # Unzip image files
     os.system('unzip -q -o data/raw/images_1.zip -d data/raw/images_1')

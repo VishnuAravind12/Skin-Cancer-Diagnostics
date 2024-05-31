@@ -13,3 +13,4 @@ hypopt
 opencv-contrib-python
 tensorflowjs
 requests
+imgaug
